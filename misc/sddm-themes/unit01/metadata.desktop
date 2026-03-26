@@ -1,0 +1,9 @@
+[SddmGreeterTheme]
+Name=unit01
+Description=Primer tema personalizado
+Author=Unit02_md
+Version=1.0
+Type=sddm-theme
+Interface=Qt6
+QtVersion=6
+MainScript=Main.qml
