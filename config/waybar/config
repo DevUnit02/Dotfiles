@@ -1,0 +1,133 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+
+  "modules-left": ["hyprland/workspaces", "privacy"],
+  "modules-center": [],
+  "modules-right": ["tray", "memory", "temperature#gpu", "temperature#cpu", "cpu", "disk", "network", "pulseaudio", "clock"],
+
+  "hyprland/workspaces": {
+	"format": "{icon}",
+	"format-icons": {
+		"1": "󰣇",
+		"2": "",
+		"3": "",
+		"4": "",
+		"5": "󰓓",
+		"default": ""
+	},
+       "persistent-workspaces": {
+             "*": 5, // 5 workspaces by default on every monitor
+       },
+  },
+
+  "clock": {
+    "format": "  {:%H:%M}",
+    "tooltip-format": "{:%A, %d %B %Y}",
+    "timezone":"America/Argentina/Buenos_Aires"
+  },
+
+  "network": {
+    "interface": "enp12s0",
+    "interval": 1,
+    "format": "{ifname}",
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰖪  Offline",
+
+    "tooltip-format":
+	"Interface: {ifname}\nIP: {ipaddr}\n\n⬇ {bandwidthDownBytes}\n⬆ {bandwidthUpBytes}"
+
+  },
+
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "󰖁  Muted",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "scroll-step": 1,
+    "on-click": "pavucontrol"
+  },
+
+  "cpu": {
+    "interval": 10,
+    "format": " {}%",
+    "max-length": 10
+  },
+
+  "disk": {
+    "interval": 30,
+    "format": "󰋊 {percentage_used}%",
+    "path": "/"
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": " {}%",
+    "max-length": 10
+  },
+
+  "temperature#cpu": {
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["", "", ""],
+    "tooltip": true,
+    "tooltip-format": "CPU"
+  }, 
+
+  "temperature#gpu": {
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 80,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": ["", "", ""],
+    "tooltip": true,
+    "tooltip-format": "GPU"
+  },
+
+  "privacy": {
+	"icon-spacing": 4,
+	"icon-size": 18,
+	"transition-duration": 250,
+	"modules": [
+		{
+			"type": "screenshare",
+			"tooltip": true,
+			"tooltip-icon-size": 24
+		},
+		{
+			"type": "audio-in",
+			"tooltip": true,
+			"tooltip-icon-size": 24
+		},
+		{
+			"type": "audio-out",
+			"tooltip": true,
+			"tooltip-icon-size": 24
+		}
+	],
+	"ignore-monitor": true,
+	"ignore": [
+		{
+			"type": "audio-in",
+			"name": "cava"
+		},
+		{
+			"type": "audio-out",
+			"name": "Firefox"
+		},
+		{
+			"type": "screenshare",
+			"name": "obs"
+		}
+	]
+  },
+
+  "tray": {
+    "spacing": 8
+  }
+}
