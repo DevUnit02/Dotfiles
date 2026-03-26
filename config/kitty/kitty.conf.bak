@@ -1,0 +1,54 @@
+font_family EnvyCodeR Nerd Font Mono
+font_size 13
+
+disable_ligatures yes
+enable_audio_bell no
+
+shell             zsh
+shell_integration disabled
+
+cursor_shape      block
+
+url_style         curly
+
+remember_window_size no
+window_padding_width 20
+cursor_blink_interval 0
+
+background_opacity             0.75
+scrollbar_handle_opacity       0
+scrollbar_track_opacity        0
+scrollbar_track_hover_opacity  0 
+confirm_os_window_close        0
+
+sync_to_monitor no
+
+
+# Colores de terminal
+# background            #1b1d1e
+# foreground            #6e6e6e
+# cursor                #fcee0b
+# selection_background  #4d4f4c
+# color0                #1b1d1e
+# color8                #505354
+# color1                #e6db43
+# color9                #fff68d
+# color2                #c8be46
+# color10               #fff27c
+# color3                #f3fd21
+# color11               #feed6c
+# color4                #737074
+# color12               #909495
+# color5                #737271
+# color13               #9a999d
+# color6                #615f5e
+# color14               #a2a2a5
+# color7                #c5c5be
+# color15               #dadad5
+# selection_foreground #1b1d1e
+
+
+# BEGIN_KITTY_THEME
+# Pro
+include current-theme.conf
+# END_KITTY_THEME
