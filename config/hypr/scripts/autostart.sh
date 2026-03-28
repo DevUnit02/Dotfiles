@@ -10,9 +10,6 @@ export XDG_CURRENT_DESKTOP=Hyprland
 # --- Notifications ---
 mako &
 
-# --- Status bar --- 
-waybar &
-
 # --- Wallpaper ---
 ~/.config/hypr/scripts/wallpaper.sh &
 
