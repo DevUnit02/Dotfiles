@@ -1,5 +1,5 @@
 #!/bin/bash
 
-swww-daemon &
+awww-daemon &
 sleep 0.5
-swww img /home/unit02_md/Hyprfondos/reddead.jpg
+awww img /home/unit02_md/Hyprfondos/reddead.jpg

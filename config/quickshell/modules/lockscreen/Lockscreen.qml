@@ -54,15 +54,15 @@ Scope {
                 }
             }
         }
-    }
+    } 
 
     IpcHandler {
         target: "lockscreen"
         function lock(): void {
             console.log("Comando IPC 'lock' recibido")
             lockContext.currentText = ""
-            lockContext.showFailure = false
-            lockLoader.active = true // Reinicia la instancia (soluciona el bind)
+	    lockContext.showFailure = false
+	    lockLoader.active = true // Reinicia la instancia (soluciona el bind) 
         }
     }
 }

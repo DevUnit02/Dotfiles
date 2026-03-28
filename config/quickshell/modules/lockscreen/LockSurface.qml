@@ -5,18 +5,36 @@ Rectangle {
     id: root
     required property LockContext context
 
-    // ── Colores — tocá solo este bloque para cambiar el tema ──
-    readonly property color clrBackground:  "#0d0b09"
-    readonly property color clrSurface:     Qt.rgba(1, 1, 1, 0.07)
-    readonly property color clrBorder:      Qt.rgba(1, 1, 1, 0.14)
-    readonly property color clrBorderFocus: Qt.rgba(1, 1, 1, 0.32)
-    readonly property color clrText:        Qt.rgba(1, 1, 1, 0.88)
-    readonly property color clrSubtext:     Qt.rgba(1, 1, 1, 0.40)
-    readonly property color clrHint:        Qt.rgba(1, 1, 1, 0.18)
-    readonly property color clrError:       Qt.rgba(0.86, 0.29, 0.29, 0.50)
-    readonly property string fontFamily:    "JetBrains Mono"
+    // ── Tema — mismo que el launcher ──
+    readonly property color bgBase:        "#1a1410"
+    readonly property color bgSurface:     "#2a2018"
+    readonly property color bgBorder:      "#5a4520"
+    readonly property color bgBorderInner: "#3a2810"
+    readonly property color textPrimary:   "#d4b878"
+    readonly property color textSecondary: "#8a7050"
+    readonly property color textMuted:     "#4a3820"
+    readonly property color accentPrimary: "#b8922a"
+    readonly property color accentRed:     "#a84030"
+    readonly property string fontDisplay:  "Cinzel"
+    readonly property string fontBody:     "IM FELL English"
 
-    color: clrBackground
+    color: bgBase
+
+    // ── Borde doble exterior ──
+    Rectangle {
+        anchors.fill: parent
+        anchors.margins: 8
+        color: "transparent"
+        border.color: root.bgBorder
+        border.width: 1
+    }
+    Rectangle {
+        anchors.fill: parent
+        anchors.margins: 12
+        color: "transparent"
+        border.color: root.bgBorderInner
+        border.width: 1
+    }
 
     // ── Reloj — esquina superior izquierda ──
     Item {
@@ -24,8 +42,8 @@ Rectangle {
         anchors {
             top: parent.top
             left: parent.left
-            topMargin: 28
-            leftMargin: 32
+            topMargin: 32
+            leftMargin: 40
         }
 
         property var now: new Date()
@@ -36,10 +54,10 @@ Rectangle {
 
         Text {
             id: timeLabel
-            font.family: root.fontFamily
-            font.pixelSize: 28
-            font.weight: Font.DemiBold
-            color: Qt.rgba(1, 1, 1, 0.82)
+            font.family: root.fontDisplay
+            font.pixelSize: 32
+            font.letterSpacing: 4
+            color: root.textPrimary
             renderType: Text.NativeRendering
             text: {
                 const h = clockCorner.now.getHours().toString().padStart(2, '0')
@@ -50,16 +68,17 @@ Rectangle {
 
         Text {
             anchors { top: timeLabel.bottom; topMargin: 4 }
-            font.family: root.fontFamily
+            font.family: root.fontBody
             font.pixelSize: 11
-            color: root.clrSubtext
+            font.italic: true
+            color: root.textMuted
             renderType: Text.NativeRendering
             text: {
-                const dias   = ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"]
-                const meses  = ["enero","febrero","marzo","abril","mayo","junio",
-                                 "julio","agosto","septiembre","octubre","noviembre","diciembre"]
+                const dias  = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]
+                const meses = ["January","February","March","April","May","June",
+                               "July","August","September","October","November","December"]
                 const d = clockCorner.now
-                return `${dias[d.getDay()]}, ${d.getDate()} de ${meses[d.getMonth()]}`
+                return `${dias[d.getDay()]}, ${d.getDate()} ${meses[d.getMonth()]}`
             }
         }
     }
@@ -69,50 +88,97 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 0
 
+        // Header "★ Locked ★"
+        Row {
+            Layout.alignment: Qt.AlignHCenter
+            Layout.bottomMargin: 8
+            spacing: 8
+
+            Text {
+                text: "★"
+                color: root.bgBorder
+                font.pixelSize: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Text {
+                text: "Locked"
+                color: root.accentPrimary
+                font.family: root.fontDisplay
+                font.pixelSize: 11
+                font.letterSpacing: 4
+            }
+            Text {
+                text: "★"
+                color: root.bgBorder
+                font.pixelSize: 10
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+
+        // Divisor con diamante
+        Row {
+            Layout.alignment: Qt.AlignHCenter
+            Layout.bottomMargin: 28
+            spacing: 0
+
+            Rectangle { width: 120; height: 1; color: root.bgBorderInner; anchors.verticalCenter: parent.verticalCenter }
+            Rectangle { width: 6; height: 6; rotation: 45; color: root.accentPrimary; anchors.verticalCenter: parent.verticalCenter }
+            Rectangle { width: 120; height: 1; color: root.bgBorderInner; anchors.verticalCenter: parent.verticalCenter }
+        }
+
         // Avatar
         Rectangle {
             Layout.alignment: Qt.AlignHCenter
-            Layout.bottomMargin: 14
+            Layout.bottomMargin: 16
             width: 72; height: 72; radius: 36
-            color: Qt.rgba(1, 1, 1, 0.08)
-            border.color: root.clrBorder
-            border.width: 2
+            color: root.bgSurface
+            border.color: root.bgBorder
+            border.width: 1
 
             Canvas {
                 anchors.fill: parent
                 onPaint: {
                     const ctx = getContext("2d")
                     const cx = width / 2, cy = height / 2
-                    ctx.fillStyle = "rgba(255,255,255,0.55)"
+                    ctx.fillStyle = "#8a7050"
                     ctx.beginPath(); ctx.arc(cx, cy - 8, 12, 0, Math.PI * 2); ctx.fill()
                     ctx.beginPath(); ctx.arc(cx, cy + 26, 18, Math.PI, 0); ctx.fill()
                 }
+            }
+
+            // Diamante decorativo en la esquina del avatar
+            Rectangle {
+                width: 8; height: 8; rotation: 45
+                color: root.bgBase
+                border.color: root.bgBorder
+                border.width: 1
+                anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: -4 }
             }
         }
 
         // Nombre de usuario
         Text {
             Layout.alignment: Qt.AlignHCenter
-            Layout.bottomMargin: 28
-            font.family: root.fontFamily
-            font.pixelSize: 14
-            color: root.clrSubtext
-            text: Qt.application.name  // reemplazá con tu usuario si querés hardcodearlo
+            Layout.bottomMargin: 24
+            font.family: root.fontDisplay
+            font.pixelSize: 13
+            font.letterSpacing: 3
+            color: root.textSecondary
+            text: "unit02_md"
         }
 
         // Campo de contraseña
         Rectangle {
             id: inputPill
             Layout.alignment: Qt.AlignHCenter
-            Layout.bottomMargin: 28
-            width: 240; height: 38; radius: 999
-            color: root.context.showFailure ? Qt.rgba(0.86, 0.29, 0.29, 0.10) : root.clrSurface
+            Layout.bottomMargin: 24
+            width: 260; height: 44; radius: 2
+            color: root.bgSurface
             border.width: 1
-            border.color: root.context.showFailure ? root.clrError
-                        : passwordBox.activeFocus   ? root.clrBorderFocus
-                        :                             root.clrBorder
+            border.color: root.context.showFailure ? root.accentRed
+                        : passwordBox.activeFocus   ? root.accentPrimary
+                        :                             root.bgBorder
 
-            Behavior on color        { ColorAnimation { duration: 200 } }
             Behavior on border.color { ColorAnimation { duration: 200 } }
 
             SequentialAnimation {
@@ -131,11 +197,11 @@ Rectangle {
 
             TextInput {
                 id: passwordBox
-                anchors { fill: parent; leftMargin: 18; rightMargin: 40 }
+                anchors { fill: parent; leftMargin: 16; rightMargin: 16 }
                 verticalAlignment: TextInput.AlignVCenter
-                font.family: root.fontFamily
-                font.pixelSize: 14
-                color: root.clrText
+                font.family: root.fontBody
+                font.pixelSize: 15
+                color: root.textPrimary
                 echoMode: TextInput.Password
                 inputMethodHints: Qt.ImhSensitiveData
                 enabled: !root.context.unlockInProgress
@@ -155,53 +221,48 @@ Rectangle {
                 Text {
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
-                    font: passwordBox.font
-                    color: root.clrHint
-                    text: "contraseña..."
+                    font.family: root.fontBody
+                    font.pixelSize: 15
+                    font.italic: true
+                    color: root.textMuted
+                    text: "Enter password..."
                     visible: passwordBox.text.length === 0
                 }
-            }
-
-            // Ícono de candado
-            Text {
-                anchors { right: parent.right; rightMargin: 13; verticalCenter: parent.verticalCenter }
-                font.family: "Symbols Nerd Font"
-                font.pixelSize: 14
-                color: root.clrHint
-                text: ""
             }
         }
 
         // Botones de sistema
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
-            spacing: 16
+            Layout.bottomMargin: 28
+            spacing: 20
 
             Repeater {
                 model: [
-                    { icon: "󰒲", cmd: "systemctl suspend"  },
-                    { icon: "󰜉", cmd: "systemctl reboot"   },
-                    { icon: "",  cmd: "systemctl poweroff"  }
+                    { label: "Suspend", cmd: "systemctl suspend"  },
+                    { label: "Reboot",  cmd: "systemctl reboot"   },
+                    { label: "Power Off", cmd: "systemctl poweroff" }
                 ]
 
                 delegate: Rectangle {
                     required property var modelData
-                    required property int index
-                    width: 36; height: 36; radius: 18
-                    color: ma.containsMouse ? Qt.rgba(1,1,1,0.12) : root.clrSurface
+                    width: 80; height: 28; radius: 1
+                    color: ma.containsMouse ? root.bgSurface : "transparent"
                     border.width: 1
-                    border.color: ma.containsMouse ? root.clrBorderFocus : root.clrBorder
+                    border.color: ma.containsMouse ? root.accentPrimary : root.bgBorder
                     Behavior on color        { ColorAnimation { duration: 150 } }
                     Behavior on border.color { ColorAnimation { duration: 150 } }
-                    scale: ma.pressed ? 0.92 : 1.0
+                    scale: ma.pressed ? 0.95 : 1.0
                     Behavior on scale { NumberAnimation { duration: 120; easing.type: Easing.OutBack } }
 
                     Text {
                         anchors.centerIn: parent
-                        font.family: "Symbols Nerd Font"
-                        font.pixelSize: 15
-                        color: Qt.rgba(1, 1, 1, 0.55)
-                        text: modelData.icon
+                        font.family: root.fontDisplay
+                        font.pixelSize: 9
+                        font.letterSpacing: 2
+                        color: ma.containsMouse ? root.textPrimary : root.textMuted
+                        text: modelData.label
+                        Behavior on color { ColorAnimation { duration: 150 } }
                     }
                     MouseArea {
                         id: ma
@@ -215,15 +276,53 @@ Rectangle {
                 }
             }
         }
+
+        // Divisor inferior
+        Row {
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 0
+            Rectangle { width: 120; height: 1; color: root.bgBorderInner; anchors.verticalCenter: parent.verticalCenter }
+            Rectangle { width: 6; height: 6; rotation: 45; color: root.accentPrimary; anchors.verticalCenter: parent.verticalCenter }
+            Rectangle { width: 120; height: 1; color: root.bgBorderInner; anchors.verticalCenter: parent.verticalCenter }
+        }
     }
 
-    // ── Hint abajo ──
-    Text {
-        anchors { bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; bottomMargin: 20 }
-        font.family: root.fontFamily
-        font.pixelSize: 11
-        color: root.clrHint
-        text: root.context.showFailure ? "contraseña incorrecta" : "enter para confirmar"
-        Behavior on text { }
+    // ── Footer ──
+    Item {
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+            bottomMargin: 32
+        }
+        width: footerRow.implicitWidth
+        height: footerRow.implicitHeight
+
+        Row {
+            id: footerRow
+            spacing: 8
+
+            Text {
+                text: root.context.showFailure ? "Wrong password, partner" : "Van der Linde Gang"
+                color: root.textMuted
+                font.family: root.fontDisplay
+                font.pixelSize: 8
+                font.letterSpacing: 3
+                anchors.verticalCenter: parent.verticalCenter
+                Behavior on text {}
+            }
+            Rectangle {
+                width: 4; height: 4; rotation: 45
+                color: root.bgBorder
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Text {
+                text: "1899"
+                color: root.textMuted
+                font.family: root.fontDisplay
+                font.pixelSize: 8
+                font.letterSpacing: 3
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
     }
 }
