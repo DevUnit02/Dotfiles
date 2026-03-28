@@ -1,0 +1,79 @@
+* {
+    bg0:    #1a1410;
+    bg1:    #2a2010;
+    border: #5c4a2a;
+    accent: #c9a96e;
+    muted:  #8a7355;
+    subtle: #3a2e1a;
+    fg:     #e8d5b0;
+
+    background-color:  transparent;
+    text-color:        @muted;
+    font:              "Cinzel 13";
+}
+
+window {
+    background-color: @bg0;
+    border:           1px;
+    border-color:     @border;
+    border-radius:    4px;
+    padding:          20px;
+    width:            500px;
+    height:           400px;
+    location:         center;
+    anchor:           center;
+}
+
+mainbox {
+    background-color: transparent;
+    spacing:          12px;
+    children:         [ inputbar, listview ];
+}
+
+inputbar {
+    background-color: transparent;
+    border:           1px;
+    border-color:     @border;
+    border-radius:    2px;
+    padding:          8px 12px;
+    spacing:          8px;
+    children:         [ entry ];
+}
+
+entry {
+    background-color:  transparent;
+    text-color:        @fg;
+    placeholder:       "Search application...";
+    placeholder-color: @subtle;
+}
+
+listview {
+    background-color: transparent;
+    lines:            7;
+    spacing:          4px;
+    scrollbar:        false;
+}
+
+element {
+    background-color: transparent;
+    border-radius:    2px;
+    padding:          8px 12px;
+    spacing:          10px;
+}
+
+element.selected {
+    background-color: @bg1;
+    text-color:       @accent;
+    border:           1px;
+    border-color:     @border;
+}
+
+element-text {
+    background-color: transparent;
+    text-color:       inherit;
+    vertical-align:   0.5;
+}
+
+element-icon {
+    size: 20px;
+}
