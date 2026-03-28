@@ -51,6 +51,10 @@ PanelWindow {
         // ── IZQUIERDA ──
 	RowLayout {
 	    spacing: 10
+	
+	    Tray {
+		theme: root.theme
+	    } 
 
 	    SystemStats {
 		theme: root.theme

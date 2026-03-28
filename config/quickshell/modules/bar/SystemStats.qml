@@ -107,7 +107,9 @@ RowLayout {
         command: ["bash", "-c", "top -bn1 | grep 'Cpu(s)' | awk '{print int($2)}'"]
         running: false
         stdout: StdioCollector {
-            onStreamFinished: cpuLabel.text = this.text.trim() + "%"
+	    onStreamFinished: function() {
+		cpuLabel.text = this.text.trim() + "%"
+	    }
         }
     }
     Timer { interval: 3000; running: true; repeat: true; triggeredOnStart: true; onTriggered: cpuPoller.running = true }
@@ -117,8 +119,10 @@ RowLayout {
         command: ["bash", "-c", "free | awk '/Mem:/ {printf \"%d\", $3/$2*100}'"]
         running: false
         stdout: StdioCollector {
-            onStreamFinished: memLabel.text = this.text.trim() + "%"
-        }
+	    onStreamFinished: function() {
+ 		memLabel.text = this.text.trim() + "%"
+	    }        
+	}
     }
     Timer { interval: 3000; running: true; repeat: true; triggeredOnStart: true; onTriggered: memPoller.running = true }
 
@@ -127,8 +131,10 @@ RowLayout {
         command: ["bash", "-c", "sensors k10temp-pci-00c3 | awk '/Tctl/ {gsub(/[^0-9.]/, \"\", $2); printf \"%d\", $2}'"]
         running: false
         stdout: StdioCollector {
-            onStreamFinished: cpuTempLabel.text = this.text.trim() + "°"
-        }
+	    onStreamFinished: function() {
+		cpuTempLabel.text = this.text.trim() + "°"
+	    } 
+    	}
     }
     Timer { interval: 5000; running: true; repeat: true; triggeredOnStart: true; onTriggered: cpuTempPoller.running = true }
 
@@ -137,8 +143,10 @@ RowLayout {
         command: ["bash", "-c", "sensors amdgpu-pci-0300 | awk '/edge/ {gsub(/[^0-9.]/, \"\", $2); printf \"%d\", $2}'"]
         running: false
         stdout: StdioCollector {
-            onStreamFinished: gpuTempLabel.text = this.text.trim() + "°"
-        }
+	    onStreamFinished: function() {
+		gpuTempLabel.text = this.text.trim() + "°"
+	    }
+    	}
     }
     Timer { interval: 5000; running: true; repeat: true; triggeredOnStart: true; onTriggered: gpuTempPoller.running = true }
 }
