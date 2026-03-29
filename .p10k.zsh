@@ -1713,19 +1713,24 @@
   (( ! $+functions[p10k] )) || p10k reload
  
   # ── Colores RDR2 ──
-typeset -g POWERLEVEL9K_DIR_FOREGROUND=136            # dorado para la ruta
-typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=94   # marrón para dirs acortados
-typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=136     # dorado para el anchor
+typeset -g POWERLEVEL9K_DIR_FOREGROUND=136               # dorado para la ruta
+typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=94      # marrón medio para dirs acortados
+typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=172        # naranja dorado 
 
-typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=136      # verde oliva cuando git está limpio
-typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=136   # dorado cuando hay cambios
-typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=130  # naranja cuando hay archivos sin trackear
+typeset -g POWERLEVEL9K_VCS_CLEAN_FOREGROUND=101         # verde oliva cuando git está limpio
+typeset -g POWERLEVEL9K_VCS_MODIFIED_FOREGROUND=130      # naranja oscuro con cambios
+typeset -g POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND=94      # marron sin trackear
+typeset -g POWERLEVEL9K_VCS_VISUAL_IDENTIFIER_COLOR=101
 
-typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=136      # verde oliva para éxito
-typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=160   # rojo para error
+typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=101         # verde oliva para éxito
+typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=124      # rojo para error
 
-typeset -g POWERLEVEL9K_TIME_FOREGROUND=94            # marrón para la hora
+typeset -g POWERLEVEL9K_TIME_FOREGROUND=94               # marrón para la hora
+typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
 
+typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VIINS_FOREGROUND=136
+typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_VICMD_FOREGROUND=130
+typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_FOREGROUND=124
 }
 
 # Tell `p10k configure` which file it should overwrite.
