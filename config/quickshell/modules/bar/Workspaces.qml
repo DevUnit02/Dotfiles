@@ -7,8 +7,20 @@ RowLayout {
     required property var theme
     spacing: 6
 
+    property int minWorkspaces: 5
+    property int maxId: {
+        let max = minWorkspaces
+        for (const ws of Hyprland.workspaces.values) {
+            if (ws.id > max) max = ws.id
+        }
+        const focused = Hyprland.focusedWorkspace?.id ?? 0
+        if (focused > max) max = focused
+        return max
+    }
+
     Repeater {
-        model: 9
+        model: root.maxId
+
         Item {
             width: 18
             height: 18
@@ -18,12 +30,12 @@ RowLayout {
 
             Text {
                 anchors.centerIn: parent
-                text: isActive ? "󰪥" : ""
+                text: isActive ? "󰪥" : "●"
                 font.family: root.theme.fontIcons
                 font.pixelSize: isActive ? 14 : 9
                 color: isActive          ? root.theme.accentPrimary
-                     : ws       	 ? root.theme.textSecondary
-                     :            	   root.theme.bgBorderInner
+                     : ws                ? root.theme.textSecondary
+                     :                     root.theme.bgBorderInner
 
                 Behavior on color { ColorAnimation { duration: 150 } }
             }
